@@ -22,15 +22,35 @@
 <button class="btn btn-danger ms-2" @onclick="RunThrowingMethod" disabled="@isRunning">
     Throw worker exception
 </button>
+<button class="btn btn-info ms-2" @onclick="RunConcurrentCalls" disabled="@isRunning">
+    Run concurrent calls
+</button>
+<button class="btn btn-dark ms-2" @onclick="RunDisposeDuringCall" disabled="@isRunning">
+    Dispose during call
+</button>
+<button class="btn btn-purple ms-2" @onclick="RunTwoClients" disabled="@isRunning">
+    Two independent clients
+</button>
 
 <p class="mt-3"><strong>Status:</strong> @status</p>
 <p><strong>Result:</strong> @result</p>
+
+@if (concurrentLog.Count > 0)
+{
+    <ul>
+        @foreach (var entry in concurrentLog)
+        {
+            <li>@entry</li>
+        }
+    </ul>
+}
 
 @code {
     private int currentCount = 0;
     private bool isRunning;
     private string status = "Ready";
     private int? result;
+    private readonly List<string> concurrentLog = [];
 
     private void IncrementCount()
     {
@@ -76,6 +96,173 @@
 
         status = "Worker void method completed without a return value";
         isRunning = false;
+    }
+
+    // Issues several calls on a single worker before awaiting any of them.
+    private async Task RunConcurrentCalls()
+    {
+        isRunning = true;
+        status = "Four calls in flight on one worker...";
+        result = null;
+        concurrentLog.Clear();
+
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+        try
+        {
+            await using var worker = await WebWorkerClient.CreateAsync(JSRuntime);
+
+            // Start all calls first - none is awaited yet, so all are in flight.
+            var slow3 = worker.InvokeAsync<int>("MyWebWorker.WorkerMethods.SlowComputation", [3]);
+            var greet = worker.InvokeAsync<string>("MyWebWorker.WorkerMethods.Greet", ["World"]);
+            var slow1 = worker.InvokeAsync<int>("MyWebWorker.WorkerMethods.SlowComputation", [1]);
+            var failing = worker.InvokeVoidAsync("MyWebWorker.WorkerMethods.ThrowError", []);
+
+            await Task.WhenAll(
+                Record("slow(3)", slow3, stopwatch),
+                Record("greet", greet, stopwatch),
+                Record("slow(1)", slow1, stopwatch),
+                Record("throwError", failing, stopwatch));
+
+            status = $"All four calls settled in {stopwatch.Elapsed.TotalSeconds:F1}s";
+        }
+        catch (Exception exception)
+        {
+            status = $"Concurrent run failed: {exception.GetBaseException().Message}";
+        }
+        finally
+        {
+            isRunning = false;
+            StateHasChanged();
+        }
+    }
+
+    // Disposes the client while a 10 second call is still in flight.
+    private async Task RunDisposeDuringCall()
+    {
+        isRunning = true;
+        status = "Starting a 10s call, disposing the client after 1s...";
+        result = null;
+        concurrentLog.Clear();
+
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+        try
+        {
+            // Not 'await using' - disposal is triggered explicitly while the call is pending.
+            var worker = await WebWorkerClient.CreateAsync(JSRuntime);
+
+            var pending = worker.InvokeAsync<int>("MyWebWorker.WorkerMethods.SlowComputation", [10]);
+            Log($"call started, expected to run for 10s", stopwatch);
+
+            await Task.Delay(1000);
+            Log("disposing the client while the call is in flight", stopwatch);
+
+            await worker.DisposeAsync();
+            Log("DisposeAsync returned", stopwatch);
+
+            try
+            {
+                var value = await pending;
+                Log($"FAIL: pending call resolved with {value}", stopwatch);
+            }
+            catch (Exception exception)
+            {
+                Log($"PASS: pending call faulted -> {exception.GetBaseException().Message}", stopwatch);
+            }
+
+            status = $"Dispose-during-call finished in {stopwatch.Elapsed.TotalSeconds:F1}s";
+        }
+        catch (Exception exception)
+        {
+            status = $"Dispose-during-call errored: {exception.GetBaseException().Message}";
+        }
+        finally
+        {
+            isRunning = false;
+            StateHasChanged();
+        }
+    }
+
+    private void Log(string message, System.Diagnostics.Stopwatch stopwatch)
+    {
+        concurrentLog.Add($"[{stopwatch.Elapsed.TotalSeconds:F1}s] {message}");
+        StateHasChanged();
+    }
+
+    // Creates two separate clients and runs calls on both in parallel.
+    private async Task RunTwoClients()
+    {
+        isRunning = true;
+        status = "Creating two clients and running calls in parallel...";
+        result = null;
+        concurrentLog.Clear();
+
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+        try
+        {
+            // Create two independent worker clients - each gets its own thread.
+            var client1 = await WebWorkerClient.CreateAsync(JSRuntime);
+            var client2 = await WebWorkerClient.CreateAsync(JSRuntime);
+            Log($"two clients created", stopwatch);
+
+            // Start long calls on both clients without awaiting.
+            var call1 = client1.InvokeAsync<int>("MyWebWorker.WorkerMethods.SlowComputation", [3]);
+            var call2 = client2.InvokeAsync<int>("MyWebWorker.WorkerMethods.SlowComputation", [3]);
+            Log($"both calls started (should run in parallel)", stopwatch);
+
+            // Collect results.
+            await Task.WhenAll(
+                Record("client1.slow(3)", call1, stopwatch),
+                Record("client2.slow(3)", call2, stopwatch));
+
+            // Clean up.
+            await client1.DisposeAsync();
+            await client2.DisposeAsync();
+            Log($"both clients disposed", stopwatch);
+
+            status = $"Two-client run finished in {stopwatch.Elapsed.TotalSeconds:F1}s (should be ~3s, not ~6s)";
+        }
+        catch (Exception exception)
+        {
+            status = $"Two-client run failed: {exception.GetBaseException().Message}";
+        }
+        finally
+        {
+            isRunning = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task Record<T>(string label, Task<T> task, System.Diagnostics.Stopwatch stopwatch)
+    {
+        try
+        {
+            var value = await task;
+            concurrentLog.Add($"{label}: OK -> {value} (at {stopwatch.Elapsed.TotalSeconds:F1}s)");
+        }
+        catch (Exception exception)
+        {
+            concurrentLog.Add($"{label}: FAILED -> {exception.GetBaseException().Message} (at {stopwatch.Elapsed.TotalSeconds:F1}s)");
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task Record(string label, Task task, System.Diagnostics.Stopwatch stopwatch)
+    {
+        try
+        {
+            await task;
+            concurrentLog.Add($"{label}: OK -> (no value) (at {stopwatch.Elapsed.TotalSeconds:F1}s)");
+        }
+        catch (Exception exception)
+        {
+            concurrentLog.Add($"{label}: FAILED -> {exception.GetBaseException().Message} (at {stopwatch.Elapsed.TotalSeconds:F1}s)");
+        }
+
+        StateHasChanged();
     }
 
     private async Task RunThrowingMethod()
