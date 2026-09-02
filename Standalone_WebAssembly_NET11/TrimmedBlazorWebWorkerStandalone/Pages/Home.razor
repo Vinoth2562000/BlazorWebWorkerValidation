@@ -1,0 +1,19 @@
+﻿@page "/"
+
+
+@inject IJSRuntime JSRuntime
+@using MyWebWorker
+@using System.Text.Json
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await using WebWorkerClient? worker = await WebWorkerClient.CreateAsync(JSRuntime);
+        
+        Console.WriteLine(value: "Worker created?");
+        
+        string? greeting = await worker.InvokeAsync<string>(method: "TrimmedBlazorWebWorkerStandalone.MyWorker.Greet", ["World"]);
+        string usersJson = await worker.InvokeAsync<string>(method: "TrimmedBlazorWebWorkerStandalone.MyWorker.GetUsers", []);
+        List<User>? users = JsonSerializer.Deserialize<List<User>>(usersJson);
+    }
+}
