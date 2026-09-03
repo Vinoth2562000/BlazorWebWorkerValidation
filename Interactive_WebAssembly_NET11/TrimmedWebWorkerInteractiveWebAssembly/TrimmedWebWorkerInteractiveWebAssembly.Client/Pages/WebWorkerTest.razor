@@ -1,0 +1,24 @@
+@page "/webworkertest"
+@rendermode InteractiveWebAssembly
+
+@inject IJSRuntime JSRuntime
+@using MyWebWorker
+@using System.Text.Json
+
+@code {
+    private bool hasInitialized = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !hasInitialized)
+        {
+            hasInitialized = true;
+            await using WebWorkerClient? worker = await WebWorkerClient.CreateAsync(JSRuntime);
+            
+            Console.WriteLine(value: "Worker created?");
+            
+            string? greeting = await worker.InvokeAsync<string>(method: "MyWebWorker.WorkerMethods.Greet", ["World"]);
+            int result = await worker.InvokeAsync<int>(method: "MyWebWorker.WorkerMethods.SlowComputation", [2]);
+        }
+    }
+}

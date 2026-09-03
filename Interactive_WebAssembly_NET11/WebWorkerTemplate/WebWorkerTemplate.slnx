@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../MyWebWorker/MyWebWorker.csproj" />
+  <Project Path="WebWorkerTemplate.Client/WebWorkerTemplate.Client.csproj" />
+  <Project Path="WebWorkerTemplate/WebWorkerTemplate.csproj" />
+</Solution>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <History>True|2026-09-03T12:13:23.3755592Z||;True|2026-09-03T17:42:35.6672115+05:30||;True|2026-09-03T17:39:31.0156140+05:30||;True|2026-09-03T17:35:07.0337808+05:30||;True|2026-09-03T17:28:48.8072771+05:30||;False|2026-09-03T16:59:07.2491985+05:30||;</History>
+    <LastFailureDetails />
+    <_PublishTargetUrl>D:\BlazorWebWorkerValidation\Interactive_WebAssembly_NET11\WebWorkerTemplate\WebWorkerTemplate\bin\Release\net11.0\publish\</_PublishTargetUrl>
+  </PropertyGroup>
+</Project>

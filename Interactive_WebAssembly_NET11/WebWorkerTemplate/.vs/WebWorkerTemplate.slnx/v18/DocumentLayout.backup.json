@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B2A50B61-8502-357B-30D7-482132DF1AE4}|WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj|d:\\blazorwebworkervalidation\\interactive_webassembly_net11\\webworkertemplate\\webworkertemplate.client\\webworkertemplate.client.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B2A50B61-8502-357B-30D7-482132DF1AE4}|WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj|solutionrelative:webworkertemplate.client\\webworkertemplate.client.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2A50B61-8502-357B-30D7-482132DF1AE4}|WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj|d:\\blazorwebworkervalidation\\interactive_webassembly_net11\\webworkertemplate\\webworkertemplate.client\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B2A50B61-8502-357B-30D7-482132DF1AE4}|WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj|solutionrelative:webworkertemplate.client\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2A50B61-8502-357B-30D7-482132DF1AE4}|WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj|d:\\blazorwebworkervalidation\\interactive_webassembly_net11\\webworkertemplate\\webworkertemplate.client\\pages\\webworkertest.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B2A50B61-8502-357B-30D7-482132DF1AE4}|WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj|solutionrelative:webworkertemplate.client\\pages\\webworkertest.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82900CF2-C0A6-C968-11CD-B6894819B4DE}|WebWorkerTemplate\\WebWorkerTemplate.csproj|d:\\blazorwebworkervalidation\\interactive_webassembly_net11\\webworkertemplate\\webworkertemplate\\webworkertemplate.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{82900CF2-C0A6-C968-11CD-B6894819B4DE}|WebWorkerTemplate\\WebWorkerTemplate.csproj|solutionrelative:webworkertemplate\\webworkertemplate.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WebWorkerTest.razor",
+              "DocumentMoniker": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate.Client\\Pages\\WebWorkerTest.razor",
+              "RelativeDocumentMoniker": "WebWorkerTemplate.Client\\Pages\\WebWorkerTest.razor",
+              "ToolTip": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate.Client\\Pages\\WebWorkerTest.razor",
+              "RelativeToolTip": "WebWorkerTemplate.Client\\Pages\\WebWorkerTest.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-03T12:08:37.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Counter.razor",
+              "DocumentMoniker": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate.Client\\Pages\\Counter.razor",
+              "RelativeDocumentMoniker": "WebWorkerTemplate.Client\\Pages\\Counter.razor",
+              "ToolTip": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate.Client\\Pages\\Counter.razor",
+              "RelativeToolTip": "WebWorkerTemplate.Client\\Pages\\Counter.razor",
+              "ViewState": "AgIAAA8BAAAAAAAAAAAQwCMBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-03T12:08:32.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WebWorkerTemplate.Client",
+              "DocumentMoniker": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj",
+              "RelativeDocumentMoniker": "WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj",
+              "ToolTip": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj",
+              "RelativeToolTip": "WebWorkerTemplate.Client\\WebWorkerTemplate.Client.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-03T12:05:18.337Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WebWorkerTemplate",
+              "DocumentMoniker": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate\\WebWorkerTemplate.csproj",
+              "RelativeDocumentMoniker": "WebWorkerTemplate\\WebWorkerTemplate.csproj",
+              "ToolTip": "D:\\BlazorWebWorkerValidation\\Interactive_WebAssembly_NET11\\WebWorkerTemplate\\WebWorkerTemplate\\WebWorkerTemplate.csproj",
+              "RelativeToolTip": "WebWorkerTemplate\\WebWorkerTemplate.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-03T12:05:11.208Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
