@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\SOURCE\Sample\BlazorWebWorkerValidation\Standalone_WebAssembly_NET11\BlazorWebWorkerStandaloneIDETemplate\bin\Release\net11.0\browser-wasm\publish\</_PublishTargetUrl>
+    <History>True|2026-09-03T03:40:28.6058346Z||;False|2026-09-03T09:08:26.2102371+05:30||;True|2026-09-02T21:20:22.4092394+05:30||;True|2026-09-02T21:18:00.6788419+05:30||;True|2026-09-02T21:13:24.3681490+05:30||;True|2026-09-02T21:10:56.1582047+05:30||;True|2026-09-02T21:08:02.0001927+05:30||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
